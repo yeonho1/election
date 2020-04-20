@@ -1,0 +1,25 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+<h2>진행중인 투표</h2>
+<div class="container">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th class="col-md-10">투표 제목</th>
+            <th class="col-md-2">투표 제작자</th>
+        </tr>
+        {% if openVotes.all %}
+            {% for vote in openVotes %}
+                <tr>
+                    <td class="col-md-10">{{vote.title}}</td>
+                    <td class="col-md-2">{{vote.who_opened}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="2">진행중인 투표가 없습니다.</td>
+            </tr>
+        {% endif %}
+    </table>
+</div>
+{% endblock %}
