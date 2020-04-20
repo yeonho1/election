@@ -50,5 +50,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return self.nickname
 
+    def __str__(self):
+        return self.__unicode__()
+
     USERNAME_FIELD = 'nickname'
     REQUIRED_FIELDS = ['email']
