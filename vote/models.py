@@ -5,6 +5,7 @@ from user.models import User
 
 class VoteTopic(models.Model):
     title = models.CharField(max_length=255, verbose_name=u'투표 제목', null=False, default=u'제목이 없는 투표')
+    is_closed = models.BooleanField(default=False, verbose_name=u'마감 여부')
 
 class VoteSelection(models.Model):
     name = models.CharField(max_length=255, verbose_name=u'투표 선택지 이름', null=False, default='제목이 없는 선택지')
