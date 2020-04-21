@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import VoteTopic
+from .models import VoteTopic, VoteSelection
 
 # Create your views here.
 def main(request):
@@ -11,4 +11,8 @@ def viewvote(request, id):
         topic = VoteTopic.objects.get(id=id)
     except VoteTopic.DoesNotExist:
         return render(request, 'vote/404.html', {})
-    return render(request, 'vote/view.html', {'topic': topic})
+    selections = VoteSelection.objects.filter(topic=topic)
+    voted = 0
+    for sel in selections:
+        voted += sel.votedUsers.count()
+    return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted})

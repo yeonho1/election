@@ -2,12 +2,20 @@
 
 {% block content %}
 <h2>{{topic.title}}</h2>
-<div class="container">
-    <br>
-    {% ifequal topic.contents "" %}
-    <p>내용이 없습니다.</p>
-    {% else %}
-    <p>{{topic.content}}</p>
-    {% endifequal %}
-</div>
+<br>
+{% ifequal topic.contents "" %}
+<p>내용이 없습니다.</p>
+{% else %}
+<p>{{topic.content}}</p>
+{% endifequal %}
+<h3>선택지들</h3>
+<br>
+{% if selections.all %}
+    {% for sel in selections %}
+        <p>{{sel.name}}</p>
+    {% endfor %}
+{% else %}
+    <p>선택지가 없습니다.</p>
+{% endif %}
+<p>{{voted}}명이 투표했습니다.</p>
 {% endblock %}
