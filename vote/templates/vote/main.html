@@ -3,7 +3,7 @@
 {% block content %}
 <h2>진행중인 투표</h2>
 <div class="container">
-    <table class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped table-hover" style="width: 100%;">
         <tr>
             <th class="col-md-10">투표 제목</th>
             <th class="col-md-2">투표 제작자</th>
@@ -11,7 +11,7 @@
         {% if openVotes.all %}
             {% for vote in openVotes %}
                 <tr>
-                    <td class="col-md-10">{{vote.title}}</td>
+                    <td class="col-md-10"><a href="/vote/{{vote.id}}">{{vote.title}}</a></td>
                     <td class="col-md-2">{{vote.who_opened}}</td>
                 </tr>
             {% endfor %}
