@@ -1,0 +1,21 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+<h2>로그인</h2>
+<form method="post">
+    {% csrf_token %}
+    <table class="table table-bordered table-striped table-hover" style="width: 100%;">
+        <tr>
+            <th class="col-md-2"><center>닉네임</center></th>
+            <td class="col-md-10"><input name="username"  style="width: 100%;"></td>
+        </tr>
+        <tr>
+            <th class="col-md-2"><center>비밀번호</center></th>
+            <td class="col-md-10"><input type="password" name="password" style="width: 100%;"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="로그인" class="btn btn-info" style="width: 100%;"></td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
