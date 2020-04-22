@@ -11,6 +11,22 @@ def main(request):
     openVotes = VoteTopic.objects.filter(is_closed=False)
     return render(request, 'vote/main.html', {"openVotes": openVotes, 'user': user, 'log': loggedin})
 
+def vote(request, id):
+    try:
+        sel = VoteSelection.objects.get(id=id)
+    except VoteSelection.DoesNotExist:
+        return render(request, 'vote/404.html', {})
+    user = request.user
+    if user.id is not None:
+        return HttpResponse('로그인을 하신 뒤에 투표하여 주세요.')
+    topic = sel.topic
+    voted = []
+    for vs in VoteSelection.objects.filter(topic=topic):
+        voted += list(vs.votedUsers)
+    if user in voted:
+        return HttpResponse('이미 투표한 주제입니다.')
+    sel.votedUsers.append(user)
+
 def viewvote(request, id):
     user = request.user
     loggedin = False
