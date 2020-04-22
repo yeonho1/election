@@ -21,6 +21,9 @@
     {% for sel in selections %}
         <p>{{sel.name}}</p>
     {% endfor %}
+    {% if selected %}
+        <p>{{selected.name}}에 투표하셨습니다.</p>
+    {% endif %}
 {% else %}
     <p>선택지가 없습니다.</p>
 {% endif %}
