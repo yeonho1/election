@@ -12,6 +12,10 @@ def main(request):
     return render(request, 'vote/main.html', {"openVotes": openVotes, 'user': user, 'log': loggedin})
 
 def viewvote(request, id):
+    user = request.user
+    loggedin = False
+    if user.id is not None:
+        loggedin = True
     try:
         topic = VoteTopic.objects.get(id=id)
     except VoteTopic.DoesNotExist:
@@ -20,7 +24,7 @@ def viewvote(request, id):
     voted = 0
     for sel in selections:
         voted += sel.votedUsers.count()
-    return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted})
+    return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted, 'user': user, 'log': loggedin})
 
 def login_view(request):
     if request.method == "POST":
