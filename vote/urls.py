@@ -18,5 +18,5 @@ from . import views
 
 urlpatterns = [
     path('', views.main),
-    path('<int:id>', views.viewvote)
+    path('view/<int:id>', views.viewvote)
 ]

@@ -10,7 +10,7 @@
     {% if openVotes.all %}
         {% for vote in openVotes %}
             <tr>
-                <td class="col-md-10"><a href="/vote/{{vote.id}}">{{vote.title}}</a></td>
+                <td class="col-md-10"><a href="/vote/view/{{vote.id}}">{{vote.title}}</a></td>
                 <td class="col-md-2">{{vote.who_opened}}</td>
             </tr>
         {% endfor %}
