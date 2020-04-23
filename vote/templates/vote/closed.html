@@ -1,0 +1,30 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+{% if log %}
+<p>안녕하세요, {{user.nickname}}님!</p>
+<a href="{% url 'logout' %}" class="btn btn-warning">로그아웃</a>
+{% else %}
+<p>로그인 해주세요.</p>
+<a href="{% url 'login' %}" class="btn btn-warning">로그인</a>
+{% endif %}
+<h2>{{topic.title}} 마감 완료</h2>
+<br>
+<p>{{topic.title}} 주제가 성공적으로 마감되었습니다.</p>
+<p>결과는 다음과 같습니다.</p>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>순위</th>
+        <th>선택지 이름</th>
+        <th>득표수</th>
+    </tr>
+    {% for sel in selections %}
+        <tr>
+            <td>{{forloop.counter}}위</td>
+            <td>{{sel.name}}</td>
+            <td>{{sel.votedUsers.count}}표</td>
+        </tr>
+    {% endfor %}
+</table>
+<a class="btn btn-info" href="{% url 'votemain' %}">메인으로 돌아가기</a>
+{% endblock %}
