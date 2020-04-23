@@ -27,7 +27,11 @@
         </tr>
         <tr>
             {% for sel in selections %}
-                <td><center><a href="{% url 'vote' id=sel.id %}" class="btn btn-warning">{{sel.name}}에 투표하기</a></center></td>
+                {% if topic.is_closed %}
+                    <td><center><button class="btn btn-warning" disabled>{{sel.name}}에 투표하기</button></center></td>
+                {% else %}
+                    <td><center><a href="{% url 'vote' id=sel.id %}" class="btn btn-warning">{{sel.name}}에 투표하기</a></center></td>
+                {% endif %}
             {% endfor %}
         </tr>
     </table>
@@ -39,4 +43,7 @@
 {% endif %}
 <p>{{voted}}명이 투표했습니다.</p>
 <a class="btn btn-info" href="{% url 'votemain' %}">돌아가기</a>
+{% ifequal user.id topic.who_opened.id %}
+<a class="btn btn-danger" href="{% url 'closevote' id=topic.id %}">투표 마감하기</a>
+{% endifequal %}
 {% endblock %}
