@@ -12,20 +12,22 @@ def main(request):
     return render(request, 'vote/main.html', {"openVotes": openVotes, 'user': user, 'log': loggedin})
 
 def vote(request, id):
+    user = request.user
+    if user.id is None:
+        return render(request, 'vote/votefail.html', {'reason': '로그인을 하신 뒤에 투표하여 주세요.'})
+    loggedin = True
     try:
         sel = VoteSelection.objects.get(id=id)
     except VoteSelection.DoesNotExist:
-        return render(request, 'vote/404.html', {})
-    user = request.user
-    if user.id is not None:
-        return HttpResponse('로그인을 하신 뒤에 투표하여 주세요.')
+        return render(request, 'vote/votefail.html', {'reason': '해당 투표 선택지를 찾을 수 없습니다.', 'user': user, 'log': loggedin})
     topic = sel.topic
     voted = []
     for vs in VoteSelection.objects.filter(topic=topic):
-        voted += list(vs.votedUsers)
+        voted += list(vs.votedUsers.all())
     if user in voted:
-        return HttpResponse('이미 투표한 주제입니다.')
-    sel.votedUsers.append(user)
+        return render(request, 'vote/votefail.html', {'reason': '이미 투표한 주제입니다.', 'user': user, 'log': loggedin})
+    sel.votedUsers.add(user)
+    return render(request, 'vote/vote.html', {'topic': topic, 'sel': sel, 'user': user, 'log': loggedin})
 
 def viewvote(request, id):
     try:
@@ -41,7 +43,10 @@ def viewvote(request, id):
     sel = None
     if user.id is not None:
         loggedin = True
-        sel = selections.get(votedUsers__in=[user])
+        try:
+            sel = selections.get(votedUsers__in=[user])
+        except VoteSelection.DoesNotExist:
+            sel = None
     return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted, 'user': user, 'log': loggedin, 'selected': sel})
 
 def login_view(request):
