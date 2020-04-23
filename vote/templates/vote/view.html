@@ -34,6 +34,13 @@
                     {% endif %}
                 {% endfor %}
             </tr>
+            {% if topic.is_closed %}
+                <tr>
+                    {% for sel in selections %}
+                        <td><center>{{sel.votedUsers.count}}표</center></td>
+                    {% endfor %}
+                </tr>
+            {% endif %}
         </table>
         {% if selected %}
             <p>{{selected.name}}에 투표하셨습니다.</p>
