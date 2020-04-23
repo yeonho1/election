@@ -29,6 +29,23 @@ def vote(request, id):
     sel.votedUsers.add(user)
     return render(request, 'vote/vote.html', {'topic': topic, 'sel': sel, 'user': user, 'log': loggedin})
 
+def closevote(request, id):
+    user = request.user
+    if user.id is None:
+        return render(request, 'vote/closefail.html', {'reason': '로그인을 하신 뒤에 투표를 마감하여 주세요.'})
+    loggedin = True
+    try:
+        topic = VoteTopic.objects.get(id=id)
+    except VoteTopic.DoesNotExist:
+        return render(request, 'vote/404.html', {})
+    if user.id != topic.who_opened.id:
+        return render(request, 'vote/closefail.html', {'reason': '투표를 마감할 권한이 없습니다.'})
+    topic.is_closed = True
+    topic.save()
+    selections = list(VoteSelection.objects.filter(topic=topic))
+    selections = sorted(selections, reverse=True, key=lambda x: x.votedUsers.count())
+    return render(request, 'vote/closed.html', {'topic': topic, 'selections': selections, 'user': user, 'log': loggedin})
+
 def viewvote(request, id):
     try:
         topic = VoteTopic.objects.get(id=id)
