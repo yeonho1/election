@@ -17,10 +17,20 @@
 {% endifequal %}
 <h3>선택지들</h3>
 <br>
+<p><strong>주의</strong>: 한 번 투표하면 바꿀 수 없으니 신중하게 투표하여 주시기 바랍니다.</p>
 {% if selections.all %}
-    {% for sel in selections %}
-        <p>{{sel.name}}</p>
-    {% endfor %}
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            {% for sel in selections %}
+                <td><center>{{sel.name}}</center></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for sel in selections %}
+                <td><center><a href="{% url 'vote' id=sel.id %}" class="btn btn-warning">{{sel.name}}에 투표하기</a></center></td>
+            {% endfor %}
+        </tr>
+    </table>
     {% if selected %}
         <p>{{selected.name}}에 투표하셨습니다.</p>
     {% endif %}
