@@ -14,12 +14,16 @@ def main(request):
 def vote(request, id):
     user = request.user
     if user.id is None:
-        return render(request, 'vote/votefail.html', {'reason': '로그인을 하신 뒤에 투표하여 주세요.'})
+        response = render(request, 'vote/votefail.html', {'reason': '로그인을 하신 뒤에 투표하여 주세요.'})
+        response.status_code = 403
+        return response
     loggedin = True
     try:
         sel = VoteSelection.objects.get(id=id)
     except VoteSelection.DoesNotExist:
-        return render(request, 'vote/votefail.html', {'reason': '해당 투표 선택지를 찾을 수 없습니다.', 'user': user, 'log': loggedin})
+        response = render(request, 'vote/votefail.html', {'reason': '해당 투표 선택지를 찾을 수 없습니다.', 'user': user, 'log': loggedin})
+        response.status_code = 404
+        return response
     topic = sel.topic
     voted = []
     for vs in VoteSelection.objects.filter(topic=topic):
@@ -32,14 +36,20 @@ def vote(request, id):
 def closevote(request, id):
     user = request.user
     if user.id is None:
-        return render(request, 'vote/closefail.html', {'reason': '로그인을 하신 뒤에 투표를 마감하여 주세요.'})
+        response = render(request, 'vote/closefail.html', {'reason': '로그인을 하신 뒤에 투표를 마감하여 주세요.'})
+        response.status_code = 403
+        return response
     loggedin = True
     try:
         topic = VoteTopic.objects.get(id=id)
     except VoteTopic.DoesNotExist:
-        return render(request, 'vote/404.html', {})
+        response = render(request, 'vote/404.html', {})
+        response.status_code = 404
+        return response
     if user.id != topic.who_opened.id:
-        return render(request, 'vote/closefail.html', {'reason': '투표를 마감할 권한이 없습니다.'})
+        response = render(request, 'vote/closefail.html', {'reason': '투표를 마감할 권한이 없습니다.'})
+        response.status_code = 403
+        return response
     topic.is_closed = True
     topic.save()
     selections = list(VoteSelection.objects.filter(topic=topic))
@@ -50,7 +60,9 @@ def viewvote(request, id):
     try:
         topic = VoteTopic.objects.get(id=id)
     except VoteTopic.DoesNotExist:
-        return render(request, 'vote/404.html', {})
+        response = render(request, 'vote/404.html', {})
+        response.status_code = 404
+        return response
     selections = VoteSelection.objects.filter(topic=topic)
     voted = 0
     for sel in selections:
