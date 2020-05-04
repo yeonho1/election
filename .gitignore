@@ -1,0 +1,9 @@
+*/__init__.py
+*.pyc
+*/migrations
+*/tests.py
+*/settings.json
+.DS_Store
+*/.DS_Store
+*.swp
+db.sqlite3
