@@ -7,4 +7,4 @@
 >
 >   * User authentication
 >   * Voting
->   * Creation of Vote topic & Vote selection (In development)
+>   * Creation of Vote topic & Vote selection
