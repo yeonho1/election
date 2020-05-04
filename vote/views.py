@@ -11,6 +11,32 @@ def main(request):
     openVotes = VoteTopic.objects.filter(is_closed=False)
     return render(request, 'vote/main.html', {"openVotes": openVotes, 'user': user, 'log': loggedin})
 
+def createVote(request):
+    user = request.user
+    loggedin = False
+    if user.id is not None:
+        loggedin = True
+    if request.method == 'POST':
+        # Create votes / vote options here
+        if not loggedin:
+            response = render(request, 'vote/createfail.html', {'reason': '로그인을 해야 투표를 생성할 수 있습니다.'})
+            response.status_code = 403
+            return response
+        try:
+            title = request.POST.get('title')
+            contents = request.POST.get('content').replace('\n', '<br>')
+            optionNames = request.POST.getlist('options[][name]')
+            topic = VoteTopic.objects.create(title=title, contents=contents, who_opened=user)
+            topic.save()
+            for oName in optionNames:
+                vs = VoteSelection.objects.create(name=oName, topic=topic)
+                vs.save()
+        except:
+            response = render(request, 'vote/createfail.html', {'reason': '오류가 발생했습니다. 다시 시도해 주세요.', 'user': user, 'log': loggedin})
+        return render(request, 'vote/created.html', {'user': user, 'log': loggedin, 'topic': topic})
+    else:
+        return render(request, 'vote/create.html', {'user': user, 'log': loggedin})
+
 def vote(request, id):
     user = request.user
     if user.id is None:
