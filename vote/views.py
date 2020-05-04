@@ -102,7 +102,8 @@ def viewvote(request, id):
             sel = selections.get(votedUsers__in=[user])
         except VoteSelection.DoesNotExist:
             sel = None
-    return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted, 'user': user, 'log': loggedin, 'selected': sel})
+    content = topic.contents.split('\\n')
+    return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted, 'user': user, 'log': loggedin, 'selected': sel, 'lines':content})
 
 def login_view(request):
     if request.method == "POST":
