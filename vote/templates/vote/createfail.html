@@ -1,0 +1,16 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+{% if log %}
+<p>안녕하세요, {{user.nickname}}님!</p>
+<a href="{% url 'logout' %}" class="btn btn-warning">로그아웃</a>
+{% else %}
+<p>로그인 해주세요.</p>
+<a href="{% url 'login' %}" class="btn btn-warning">로그인</a>
+{% endif %}
+<h2>투표 생성 실패</h2>
+<br>
+<p>투표를 생성하는 데 실패하였습니다.</p>
+<p>{{reason}}</p>
+<a class="btn btn-info" href="{% url 'votemain' %}">메인으로 돌아가기</a>
+{% endblock %}
