@@ -24,7 +24,7 @@ def createVote(request):
             return response
         try:
             title = request.POST.get('title')
-            contents = request.POST.get('content').replace('\n', '<br>')
+            contents = request.POST.get('content').replace('\n', '\\n')
             optionNames = request.POST.getlist('options[][name]')
             topic = VoteTopic.objects.create(title=title, contents=contents, who_opened=user)
             topic.save()
