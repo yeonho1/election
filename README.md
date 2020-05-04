@@ -30,7 +30,7 @@ $ pip3 install django==3.0.5
 
 **참고**: 경우에 따라 `sudo` 권한이 필요할 수도 있습니다.
 
-#### Non-unix (Python 2가 설치되지 않음
+#### Non-unix (Python 2가 설치되지 않은 경우)
 
 ```
 $ pip install django==3.0.5
@@ -66,6 +66,6 @@ SECRET_KEY = "YOUR_SECRET_KEY_HERE"
 보통 테스트할 때 처럼
 
 ```
-python manage.py runserver [port]
+$ python manage.py runserver [port]
 ```
 와 같은 방식으로 실행해도 되지만, 실제로 사용하는 경우에는 Apache의 `mod_wsgi`와 연동하는 것을 추천드립니다.
