@@ -3,6 +3,9 @@ from .models import VoteTopic, VoteSelection
 from django.contrib.auth import login, authenticate
 
 # Create your views here.
+def redirectmain(request):
+    return redirect('votemain')
+
 def main(request):
     user = request.user
     loggedin = False
