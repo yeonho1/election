@@ -30,7 +30,7 @@ def get_secret_key(var_name):
 SECRET_KEY = get_secret_key("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
