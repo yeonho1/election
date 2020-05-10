@@ -1,6 +1,7 @@
 {% extends 'vote/base.html' %}
 
 {% block content %}
+    {% load markdown_extras %}
     {% if log %}
         <p>안녕하세요, {{user.nickname}}님!</p>
         <a href="{% url 'logout' %}" class="btn btn-warning">로그아웃</a>
@@ -10,11 +11,13 @@
     {% endif %}
     <h2>{{topic.title}}</h2>
     <br>
-    {% if lines %}
-        <p>{% for l in lines %}{{l}}<br>{% endfor %}</p>
-    {% else %}
+    {% ifequal content "" %}
         <p>내용이 없습니다.</p>
-    {% endif %}
+    {% else %}
+        {% autoescape off %}
+            <p>{{content | safe_markdown}}</p>
+        {% endautoescape %}
+    {% endifequal %}
     <h3>선택지들</h3>
     <br>
     <p><strong>주의</strong>: 한 번 투표하면 바꿀 수 없으니 신중하게 투표하여 주시기 바랍니다.</p>
