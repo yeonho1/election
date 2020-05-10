@@ -18,14 +18,17 @@
 ```
 Python 3+
 Django 3.0.5 (Recommended Version)
+Markdown 3.2.2 (Recommended Version)
 ```
 
-[Python 공식 페이지](https://python.org)에 가셔서 (또는 Unix의 경우 `apt`나 `yum` 등 패키지 관리자를 사용해서) Python 3 를 설치하신 뒤에, `pip`로 `django==3.0.5`를 설치해주시면 됩니다.
+[Python 공식 페이지](https://python.org)에 가셔서 (또는 Unix의 경우 `apt`나 `yum` 등 패키지 관리자를 사용해서) Python 3 를 설치하신 뒤에, `pip`로 `django==3.0.5`와 `markdown==3.2.2`를 설치해주시면 됩니다.
 
 #### 유닉스 기반 (Python 2 기본 설치된 경우)
 
 ```
 $ pip3 install django==3.0.5
+...
+$ pip3 install markdown==3.2.2
 ```
 
 **참고**: 경우에 따라 `sudo` 권한이 필요할 수도 있습니다.
@@ -34,6 +37,8 @@ $ pip3 install django==3.0.5
 
 ```
 $ pip install django==3.0.5
+...
+$ pip install markdown==3.2.2
 ```
 
 **참고**: Python 2가 설치되어있지 않아도 `pip3`로 해야 할 수 있습니다. 만약에 되지 않으면 `pip3`로 시도해보세요.
