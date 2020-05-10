@@ -20,7 +20,7 @@ Python 3+
 Django 3.0.5 (Recommended Version)
 ```
 
-[Python 공식 페이지](https://python.org)에 가셔서 Python 3 를 설치하신 뒤에, `pip`로 `django==3.0.5`를 설치해주시면 됩니다.
+[Python 공식 페이지](https://python.org)에 가셔서 (또는 Unix의 경우 `apt`나 `yum` 등 패키지 관리자를 사용해서) Python 3 를 설치하신 뒤에, `pip`로 `django==3.0.5`를 설치해주시면 됩니다.
 
 #### 유닉스 기반 (Python 2 기본 설치된 경우)
 
