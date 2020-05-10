@@ -77,7 +77,7 @@ def closevote(request, id):
         response.status_code = 404
         return response
     if user.id != topic.who_opened.id:
-        response = render(request, 'vote/closefail.html', {'reason': '투표를 마감할 권한이 없습니다.'})
+        response = render(request, 'vote/closefail.html', {'reason': '투표를 마감할 권한이 없습니다.', 'user': user, 'log': loggedin})
         response.status_code = 403
         return response
     topic.is_closed = True
@@ -100,7 +100,7 @@ def deletevote(request, id):
         response.status_code = 404
         return response
     if user.id != topic.who_opened.id:
-        response = render(request, 'vote/deletefail.html', {'reason': '투표를 삭제할 권한이 없습니다.'})
+        response = render(request, 'vote/deletefail.html', {'reason': '투표를 삭제할 권한이 없습니다.', 'user': user, 'log': loggedin})
         response.status_code = 403
         return response
     title = topic.title
