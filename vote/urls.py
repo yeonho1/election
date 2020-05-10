@@ -22,6 +22,7 @@ urlpatterns = [
     path('view/<int:id>', views.viewvote, name='viewvote'),
     path('vote/<int:id>', views.vote, name='vote'),
     path('close/<int:id>', views.closevote, name='closevote'),
+    path('delete/<int:id>', views.deletevote, name='deletevote'),
     path('logout', LogoutView.as_view(next_page='votemain'), name='logout'),
     path('login', views.login_view, name='login'),
     path('create', views.createVote, name='createvote'),

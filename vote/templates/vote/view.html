@@ -60,4 +60,7 @@
             <a class="btn btn-danger" href="{% url 'closevote' id=topic.id %}">투표 마감하기</a>
         {% endif %}
     {% endifequal %}
+    {% ifequal user.id topic.who_opened.id %}
+        <a class="btn btn-danger" href="{% url 'deletevote' id=topic.id %}">투표 삭제하기</a>
+    {% endifequal %}
 {% endblock %}

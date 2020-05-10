@@ -77,7 +77,7 @@ def closevote(request, id):
         response.status_code = 404
         return response
     if user.id != topic.who_opened.id:
-        response = render(request, 'vote/closefail.html', {'reason': '투표를 마감할 권한이 없습니다.'})
+        response = render(request, 'vote/closefail.html', {'reason': '투표를 마감할 권한이 없습니다.', 'user': user, 'log': loggedin})
         response.status_code = 403
         return response
     topic.is_closed = True
@@ -85,6 +85,27 @@ def closevote(request, id):
     selections = list(VoteSelection.objects.filter(topic=topic))
     selections = sorted(selections, reverse=True, key=lambda x: x.votedUsers.count())
     return render(request, 'vote/closed.html', {'topic': topic, 'selections': selections, 'user': user, 'log': loggedin})
+
+def deletevote(request, id):
+    user = request.user
+    if user.id is None:
+        response = render(request, 'vote/deletefail.html', {'reason': '로그인을 하신 뒤에 투표를 삭제하여 주세요.'})
+        response.status_code = 403
+        return response
+    loggedin = True
+    try:
+        topic = VoteTopic.objects.get(id=id)
+    except VoteTopic.DoesNotExist:
+        response = render(request, 'vote/404.html', {})
+        response.status_code = 404
+        return response
+    if user.id != topic.who_opened.id:
+        response = render(request, 'vote/deletefail.html', {'reason': '투표를 삭제할 권한이 없습니다.', 'user': user, 'log': loggedin})
+        response.status_code = 403
+        return response
+    title = topic.title
+    topic.delete()
+    return render(request, 'vote/deleted.html', {'title': title, 'user': user, 'log': loggedin})
 
 def viewvote(request, id):
     try:
