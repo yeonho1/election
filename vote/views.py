@@ -27,7 +27,8 @@ def createVote(request):
             return response
         try:
             title = request.POST.get('title')
-            contents = request.POST.get('content').replace('\n', '\\n')
+            contents = request.POST.get('content')
+            # contents = request.POST.get('content').replace('\n', '\\n')
             optionNames = request.POST.getlist('options[][name]')
             topic = VoteTopic.objects.create(title=title, contents=contents, who_opened=user)
             topic.save()
@@ -105,8 +106,8 @@ def viewvote(request, id):
             sel = selections.get(votedUsers__in=[user])
         except VoteSelection.DoesNotExist:
             sel = None
-    content = topic.contents.split('\\n')
-    return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted, 'user': user, 'log': loggedin, 'selected': sel, 'lines':content})
+    content = topic.contents
+    return render(request, 'vote/view.html', {'topic': topic, 'selections': selections, 'voted': voted, 'user': user, 'log': loggedin, 'selected': sel, 'content':content})
 
 def login_view(request):
     if request.method == "POST":
