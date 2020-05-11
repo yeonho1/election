@@ -76,6 +76,7 @@ $ python manage.py migrate
 ...
 ```
 **참고**: `python`이 아닌 `python3`로 해야 동작할 수 있으니 유의하십시오.
+
 이것이 끝나면 이 시스템을 구동하기 위한 모든 준비는 끝났습니다.
 
 ### Run server
