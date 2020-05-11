@@ -66,6 +66,18 @@ SECRET_KEY = "YOUR_SECRET_KEY_HERE"
 ```
 로 고치셔도 됩니다.
 
+### Database Migration
+
+데이터베이스 테이블들을 구축하려면 다음 명령어를 사용하십시오.
+```
+$ python manage.py makemigrations
+...
+$ python manage.py migrate
+...
+```
+**참고**: `python`이 아닌 `python3`로 해야 동작할 수 있으니 유의하십시오.
+이것이 끝나면 이 시스템을 구동하기 위한 모든 준비는 끝났습니다.
+
 ### Run server
 
 보통 테스트할 때 처럼
