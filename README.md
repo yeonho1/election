@@ -45,9 +45,10 @@ $ pip install markdown==3.2.2
 
 ### SECRET KEY Configuration
 
-모두 설치하신 뒤에 [Django Secret Key Generator](https://miniwebtool.com/django-secret-key-generator/)에 가셔서 `SECRET_KEY`를 생성하신 다음, 환경 변수 `DJANGO_SECRET_KEY`로 지정해주십시오.
-
-**또는**
+모두 설치하신 뒤에 [Django Secret Key Generator](https://miniwebtool.com/django-secret-key-generator/)에 가셔서 아래와 같은 버튼을 누르십시오.
+![Generate Django Secret Key](https://user-images.githubusercontent.com/21999791/81520553-9c433000-937f-11ea-8ffc-938e87d49166.png)
+그렇게 하면 SECRET KEY가 아래에 나옵니다.
+해당 키를 복사하셔서, 환경 변수 `DJANGO_SECRET_KEY`로 지정해주시거나,
 
 `election/election/settings.py`의
 
@@ -64,7 +65,7 @@ SECRET_KEY = get_secret_key("DJANGO_SECRET_KEY")
 ```python
 SECRET_KEY = "YOUR_SECRET_KEY_HERE"
 ```
-로 고치셔도 됩니다.
+로 고치십시오.
 
 ### Database Migration
 
